@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-conf
+data:
+  POSTGRES_DB: drkiq_development
+  WORKER_PROCESSES: "1"
+  LISTEN_ON: "0.0.0.0:8010"
+  CACHE_URL: redis://redis:6379/0
+  JOB_WORKER_URL: redis://redis:6379/0

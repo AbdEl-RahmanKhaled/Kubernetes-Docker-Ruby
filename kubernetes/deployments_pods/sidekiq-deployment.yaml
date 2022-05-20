@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sidekiq-deployment
+  labels:
+    name: sidekiq-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: sidekiq
+  template:
+    metadata:
+      labels:
+        app: sidekiq
+    spec:
+      containers:
+      - name: sidekiq
+        image: abdelrahmankha/sidekiq:1.0
+        command: ["bundle", "exec", "sidekiq"]
+        envFrom:
+        - configMapRef:
+            name: app-conf
+
+        env:
+        - name: SECRET_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: app-sec
+              key: SECRET_TOKEN
+
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: app-sec
+              key: DATABASE_URL

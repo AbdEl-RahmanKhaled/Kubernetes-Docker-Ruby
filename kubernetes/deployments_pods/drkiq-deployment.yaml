@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: drkiq-deployment
+  labels:
+    name: drkiq-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: drkiq
+  template:
+    metadata:
+      labels:
+        app: drkiq
+    spec:
+      containers:
+      - name: drkiq
+        image: abdelrahmankha/drkiq:1.0
+
+        envFrom:
+        - configMapRef:
+            name: app-conf
+
+        env:
+        - name: SECRET_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: app-sec
+              key: SECRET_TOKEN
+
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: app-sec
+              key: DATABASE_URL
+
+        ports:
+        - containerPort: 8010
+      
+      initContainers:
+      - name: migrate-db
+        image: abdelrahmankha/drkiq:1.0
+        command: ["rake", "db:migrate"]
+        envFrom:
+        - configMapRef:
+            name: app-conf
+
+        env:
+        - name: SECRET_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: app-sec
+              key: SECRET_TOKEN
+
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: app-sec
+              key: DATABASE_URL
