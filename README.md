@@ -78,7 +78,7 @@ kubectl apply -f kubernetes/deployments_pods
 ```bash
 kubectl apply -f kubernetes/services
 ```
-now, you can access the app from http://<MINIKUBE_IP>:30020
+now, you can access the app from `http://<MINIKUBE_IP>:30020`
 
 ```python
 # NOTE
