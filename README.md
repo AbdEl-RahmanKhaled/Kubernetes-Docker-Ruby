@@ -2,7 +2,7 @@
 
 In this project, we will dockerize a ruby app and deploy it on a Kubernetes cluster with the following structure.
 
-![struc](https://raw.githubusercontent.com/AbdEl-RahmanKhaled/Kubernetes-Docker-Ruby/master/images/struc.png)
+![struc](https://raw.githubusercontent.com/AbdEl-RahmanKhaled/Kubernetes-Docker-Ruby/master/imgs/struc.png)
 
 # Tools Used
 
